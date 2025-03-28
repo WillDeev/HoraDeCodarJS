@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        /*6 - Escreva um programa para ler 2 notas de um aluno, calcular e imprimir a média final. Considere que a nota de aprovação é 9,5. Logo após escrever a mensagem "Calcular a média de outro aluno Sim/Não?" e solicitar um resposta. Se a resposta for "S", o programa deve ser executado novamente, caso contrário deve ser encerrado exibindo a quantidade de alunos aprovados.*/
+
+        
+        var n1, n2
+        var totalAlunosAprovados = 0
+        var resultado = 0
+
+        calcularNota()
+
+        function calcularNota(){
+            var n1 = parseInt(prompt("Digite a primeira nota: "))
+
+            while(n1 > 10 || n1 < 0){
+                var n1 = parseInt(prompt("Digite uma nota válida: "))
+            }
+
+            var n2 = parseInt(prompt("Digite a segunda nota: "))
+
+            while(n2 > 10 || n2 < 0){
+                var n2 = parseInt(prompt("Digite uma nota válida: "))
+            }
+
+            resultado = resultado + n1 + n2
+            if(resultado > 9.5){
+                alert("Parabéns! você foi aprovado")
+                totalAlunosAprovados = totalAlunosAprovados + 1
+                calcularDenovo()
+            } else {
+                alert("Infelizmente você não foi aprovado")
+                calcularDenovo()
+            }
+        }
+
+        function calcularDenovo(){
+            var resultado
+            
+            var resultado = prompt("Calcular a média de outro aluno? Sim/Não: ")
+
+            if (resultado === 'S'){
+                calcularNota()
+            } else if (resultado === 'N'){
+                alert("A quantidade de alunos aprovados foi: " + totalAlunosAprovados)
+                alert("Encerrando programa...")
+            } else {
+                alert("Opção inválida! digite S ou N.")
+                calcularDenovo()
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

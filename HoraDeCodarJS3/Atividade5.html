@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        /*5 - Faça um algoritmo que calcule e escreva a média aritmética dos dois números inteiros informados pelo usuário e todos os números inteiros entre eles. Considere que o primeiro sempre será menor que o segundo.*/
+
+        var n1, n2
+        var media
+        
+        var n1 = parseInt(prompt("Escreva o primeiro número: "))
+        var n2 = parseInt(prompt("Escreva o segundo número: "))
+
+        while(n1 > n2){
+            var n2 = parseInt(prompt("O segundo número precisa ser maior que o primeiro: "))
+        }
+
+        var media = (n2 - n1 + 1) * (n2 + n1) / 2
+        alert("A média aritimética entre os dois números é: " + media)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
