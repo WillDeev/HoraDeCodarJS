@@ -1,0 +1,125 @@
+<html>
+
+<head>
+
+	<script>
+		var saldo = 100.5; //Float
+		var nomeUsuario
+
+		function inicio() {
+
+			nome_usuario()
+
+			menu()
+			
+		}
+		
+		function menu(){
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair'));
+
+			if (escolha === 1) {
+				ver_saldo()
+			} else if (escolha === 2) {
+				ver_extrato()
+			} else if (escolha === 3) {
+				fazer_saque()
+			} else if (escolha === 4) {
+				fazer_deposito()
+			} else if (escolha === 5){
+				trasferencia()
+			} else if (escolha === 6){
+				sair()
+			} else {
+				erro()
+			}
+		}
+
+		function ver_saldo() {
+			alert('Seu saldo atual é: ' + saldo);
+			menu()
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			// Not a Number
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número:');
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_saque() {
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else if (saque > saldo || saque <= 0){
+				alert('Operação não autorizada')
+				fazer_saque()
+			} else {
+				saldo -= saque;
+				
+				ver_saldo();
+			}		
+		}
+
+		function ver_extrato(){
+			alert("você gastou 2.400,00R$ de RP no LOL\n")
+			alert("você gastou 78.999,00R$ com o chinelo da Gucci\n")
+			alert("você gastou 2,00R$ de doce na venda \n")
+			alert("você gastou 40,00R$ de recarga de celular\n")
+
+			menu()
+		}
+
+		function trasferencia(){
+			var numeroAgencia = parseInt(prompt("Escreva o número da agência: "))
+
+			if (isNaN(numeroAgencia) || numeroAgencia.trim() === ""){
+				alert("Número da agência inválido!")
+				trasferencia()
+			} else {
+				alert("A agência escolhida foi: " + numeroAgencia)
+			}
+
+			var valorTrasferencia = parseInt(prompt("Digite o valor da transferência: "))
+
+			if (valorTrasferencia > saldo || valorTrasferencia <= 0){
+				alert("Operação não autorizada")
+				trasferencia()
+			} else {
+				saldo = saldo - valorTrasferencia
+			}
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 4');
+			menu()
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+		
+		function nome_usuario(){
+			var nomeUsuario = prompt("Digite seu nome: ")
+			alert("Olá! " + nomeUsuario + ", é um prazer ter você por aqui!")
+		}
+
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
