@@ -1,0 +1,74 @@
+<html>
+<head>
+	<script>
+		var usuario 
+		var senha = 2678
+		
+		function inicio() {
+			alert("Bem vindo ao hotel Transilvânia")
+
+			var escolha = parseInt(prompt('Selecione uma opção \n 1.) Reserva de Quartos \n 2.) Cadastro de Hóspedes \n 3.) Abastecimento de Carros \n 4.) Sair'));
+
+			if (escolha === 1) {
+				reserva_quartos();
+			} else if (escolha === 2) {
+				cadastro_hospedes();
+			} else if (escolha === 3) {
+				abastecer_carros();
+			} else if (escolha === 4) {
+				sair();
+			} else {
+				erro();
+			}
+		}		
+
+		function reserva_quartos() {
+			alert('HOTEL {NOME DO HOTEL} - RESERVA DE QUARTOS');
+			inicio();
+		}
+
+		function cadastro_hospedes() {
+			alert('HOTEL {NOME DO HOTEL} - CADASTRO DE HÓSPEDES');
+			inicio();
+		}
+
+		function abastecer_carros() {
+			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
+			inicio();
+		}
+
+		function solicitarLogin() {
+			usario = prompt("Digite o seu usuário: ")
+			senhaDigitada = parseInt(prompt("Digite sua senha: "))
+
+			if(senhaDigitada != senha){
+				alert("Senha inválida! Tente novamente")
+			} else {
+				alert()
+			}
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 4');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		
+		
+		inicio();
+	</script>
+</head>
+<body>
+
+</body>
+
+</html>
