@@ -5,6 +5,7 @@
 	<script>
 		var saldo = 100.5; //Float
 		var nomeUsuario
+		var senha = 3589
 
 		function inicio() {
 
@@ -15,7 +16,7 @@
 		}
 		
 		function menu(){
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair'));
+			var escolha = parseInt(prompt('Selecione uma opção \n 1.) Saldo \n 2.) Extrato \n 3.) Saque \n 4.) Depósito \n 5.) Transferência \n 6.) Sair'));
 
 			if (escolha === 1) {
 				ver_saldo()
@@ -35,6 +36,7 @@
 		}
 
 		function ver_saldo() {
+			solicitarSenha()
 			alert('Seu saldo atual é: ' + saldo);
 			menu()
 		}
@@ -52,7 +54,10 @@
 		}
 
 		function fazer_saque() {
+			solicitarSenha()
+
 			var saque = parseFloat(prompt('Qual o valor para saque?'));
+
 			if (isNaN(saque) || saque === '') {
 				alert('Por favor, informe um número:');
 				fazer_saque();
@@ -67,22 +72,23 @@
 		}
 
 		function ver_extrato(){
-			alert("você gastou 2.400,00R$ de RP no LOL\n")
-			alert("você gastou 78.999,00R$ com o chinelo da Gucci\n")
-			alert("você gastou 2,00R$ de doce na venda \n")
-			alert("você gastou 40,00R$ de recarga de celular\n")
+			solicitarSenha()
+
+			alert("Você gastou 2.400,00R$ de RP no LOL\nVocê gastou 78.999,00R$ com o chinelo da Gucci\nVocê gastou 2,00R$ de doce na venda \nVocê gastou 40,00R$ de recarga de celular")
 
 			menu()
 		}
 
 		function trasferencia(){
+			solicitarSenha()
+
 			var numeroAgencia = parseInt(prompt("Escreva o número da agência: "))
 
-			if (isNaN(numeroAgencia) || numeroAgencia.trim() === ""){
+			if (isNaN(numeroAgencia) || numeroAgencia.trim === "" || numeroAgencia <= 0){
 				alert("Número da agência inválido!")
 				trasferencia()
 			} else {
-				alert("A agência escolhida foi: " + numeroAgencia)
+				alert("A agência escolhida foi: " + numeroAgencia)	
 			}
 
 			var valorTrasferencia = parseInt(prompt("Digite o valor da transferência: "))
@@ -91,18 +97,33 @@
 				alert("Operação não autorizada")
 				trasferencia()
 			} else {
+				alert("O valor de " + valorTrasferencia + " foi transferido com sucesso para a conta " + numeroAgencia)
+
 				saldo = saldo - valorTrasferencia
+				menu()
+			}
+		}
+
+		function solicitarSenha(){
+			var receberSenha = parseInt(prompt("Digite a sua senha: "))
+
+			if (receberSenha != senha){
+				alert("Senha inválida! Tente novamente")
+				solicitarSenha()
+			} else {
+				alert("Login feito com sucesso!")
 			}
 		}
 
 		function erro() {
-			alert('Por favor, informe um número entre 1 e 4');
+			alert('Por favor, informe um número entre 1 e 6');
 			menu()
 		}
 
 		function sair() {
 			var confirma = confirm('Você deseja sair?');
 			if (confirma) {
+				alert(nomeUsuario + ", foi um prazer ter você por aqui!")
 				window.close();
 			} else {
 				inicio();
@@ -110,7 +131,7 @@
 		}
 		
 		function nome_usuario(){
-			var nomeUsuario = prompt("Digite seu nome: ")
+			nomeUsuario = prompt("Digite seu nome: ")
 			alert("Olá! " + nomeUsuario + ", é um prazer ter você por aqui!")
 		}
 
