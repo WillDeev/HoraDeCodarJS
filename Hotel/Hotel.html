@@ -1,68 +1,81 @@
 <html>
 <head>
 	<script>
-		var usuario 
 		var senha = 2678
+		var usuario, valorDiaria, qntDias
 		
 		function inicio() {
-			alert("Bem vindo ao hotel Transilvânia")
+			usuario = prompt("Digite o seu usuário: ")
 
+			solicitarLogin()
+
+			alert("Bem vindo ao hotel Transilvânia " + usuario + "! É um imenso prazer ter você por aqui")
+
+			menu()	
+		}
+		
+		function menu(){
 			var escolha = parseInt(prompt('Selecione uma opção \n 1.) Reserva de Quartos \n 2.) Cadastro de Hóspedes \n 3.) Abastecimento de Carros \n 4.) Sair'));
 
-			if (escolha === 1) {
-				reserva_quartos();
-			} else if (escolha === 2) {
-				cadastro_hospedes();
-			} else if (escolha === 3) {
-				abastecer_carros();
-			} else if (escolha === 4) {
-				sair();
-			} else {
-				erro();
+			switch(escolha) {
+				case 1:
+					reserva_quartos()
+				break
+				case 2:
+					cadastro_hospedes()
+				break
+				case 3:
+					abastecer_carros()
+				break
+				case 4:
+					sair()
+				break
+				default:
+					erro()
+				break
 			}
-		}		
+		}
 
 		function reserva_quartos() {
 			alert('HOTEL {NOME DO HOTEL} - RESERVA DE QUARTOS');
-			inicio();
+			menu();
 		}
 
 		function cadastro_hospedes() {
 			alert('HOTEL {NOME DO HOTEL} - CADASTRO DE HÓSPEDES');
-			inicio();
+			menu();
 		}
 
 		function abastecer_carros() {
 			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
-			inicio();
+			menu();
 		}
 
-		function solicitarLogin() {
-			usario = prompt("Digite o seu usuário: ")
+		function solicitarLogin() {	
 			senhaDigitada = parseInt(prompt("Digite sua senha: "))
 
-			if(senhaDigitada != senha){
+			if (senhaDigitada != senha){
 				alert("Senha inválida! Tente novamente")
+				solicitarLogin()
 			} else {
-				alert()
+				alert("Login feito com sucesso!")
 			}
 		}
 
 		function erro() {
 			alert('Por favor, informe um número entre 1 e 4');
-			inicio();
+			menu();
 		}
 
 		function sair() {
 			var confirma = confirm('Você deseja sair?');
 			if (confirma) {
+				alert("Muito obrigado e até logo, " + usuario)
 				window.close();
 			} else {
-				inicio();
+				menu();
 			}
-		}
-
-		
+		}	
 		
 		inicio();
 	</script>
