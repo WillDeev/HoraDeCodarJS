@@ -1,8 +1,8 @@
 <html>
 <head>
 	<script>
-		var senha = 2678
-		var usuario, valorDiaria, qntDias
+		var senha = 2678, valorDiaria = 150.00
+		var usuario, qntDias, nomeHospede, numeroQuarto, quartosDisponiveis 
 		
 		function inicio() {
 			usuario = prompt("Digite o seu usuário: ")
@@ -13,7 +13,7 @@
 
 			menu()	
 		}
-		
+
 		function menu(){
 			var escolha = parseInt(prompt('Selecione uma opção \n 1.) Reserva de Quartos \n 2.) Cadastro de Hóspedes \n 3.) Abastecimento de Carros \n 4.) Sair'));
 
@@ -37,13 +37,24 @@
 		}
 
 		function reserva_quartos() {
-			alert('HOTEL {NOME DO HOTEL} - RESERVA DE QUARTOS');
+			numeroQuarto = parseInt(prompt("Qual quarto você quer reservar?" + "\n" + quartosDisponiveis))
+
+
 			menu();
 		}
 
 		function cadastro_hospedes() {
-			alert('HOTEL {NOME DO HOTEL} - CADASTRO DE HÓSPEDES');
-			menu();
+			qntDias = parseInt(prompt("Pretende ficar quantos dias hospedado? "))
+
+			if(qntDias > 30 || qntDias <= 0 || isNaN(qntDias) || qntDias.trim === ""){
+				alert("Digite uma quantidade de dias válida! ")
+				cadastro_hospedes()
+			} else {
+				nomeHospede = prompt("Qual é o nome do hospede? ")
+				reserva_quartos()
+			}
+
+			menu()
 		}
 
 		function abastecer_carros() {
