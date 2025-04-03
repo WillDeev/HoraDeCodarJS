@@ -2,7 +2,10 @@
 <head>
 	<script>
 		var senha = 2678, valorDiaria = 150.00
-		var usuario, qntDias, nomeHospede, numeroQuarto, quartosDisponiveis 
+		var usuario, qntDias, nomeHospede, numeroQuarto
+		var quartosDisponiveis = [
+			1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+		]
 		
 		function inicio() {
 			usuario = prompt("Digite o seu usuário: ")
@@ -37,8 +40,9 @@
 		}
 
 		function reserva_quartos() {
-			numeroQuarto = parseInt(prompt("Qual quarto você quer reservar?" + "\n" + quartosDisponiveis))
+			var quartoEscolhido = parseInt(prompt("Qual quarto você vai ficar? (De 1 a 20):"))
 
+			if (quartoEscolhido === 3 )
 
 			menu();
 		}
