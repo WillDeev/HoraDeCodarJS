@@ -3,9 +3,7 @@
 	<script>
 		var senha = 2678, valorDiaria = 150.00
 		var usuario, qntDias, nomeHospede, numeroQuarto
-		var quartosDisponiveis = [
-			1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-		]
+		var quartosDisponiveis = [20].fill(false)
 		
 		function inicio() {
 			usuario = prompt("Digite o seu usuário: ")
@@ -40,9 +38,28 @@
 		}
 
 		function reserva_quartos() {
-			var quartoEscolhido = parseInt(prompt("Qual quarto você vai ficar? (De 1 a 20):"))
+			var listaDisponiveis = []
+			for (var i = 0; i < 20; i++){
+				if (!quartosDisponiveis[i]){
+					listaDisponiveis.push(i + 1)
+				}
+			}
 
-			if (quartoEscolhido === 3 )
+			var quartoEscolhido = parseInt(prompt("Em qual quarto você pretende ficar? \nQuartos disponíveis: " + listaDisponiveis.join(", ")))
+
+			if (quartoEscolhido < 1 || quartoEscolhido > 20){
+				alert("Número de quarto inválido! Escolha um quarto entre 1 e 20")
+				reserva_quartos()
+				return
+			}
+
+			if (quartosDisponiveis[quartoEscolhido - 1]){
+				alert("Quarto já está ocupado! Escolha outro quarto.")
+				reserva_quartos()
+			} else {
+				quartosDisponiveis[quartoEscolhido - 1] = true
+				alert("O quarto escolhido foi " + quartoEscolhido + ", e foi reservado com sucesso!")
+			}
 
 			menu();
 		}
