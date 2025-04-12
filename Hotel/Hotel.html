@@ -1,8 +1,8 @@
 <html>
 <head>
 	<script>
-		var senha = 2678, valorDiaria = 150.00
-		var usuario, qntDias, nomeHospede, numeroQuarto
+		var senha = 2678
+		var usuario, qntDias, nomeHospede, numeroQuarto, resultadoTotalDiarias, valorDiaria, idadeHospede, hospedagensTotais
 		var quartosDisponiveis = [20].fill(false)
 		
 		function inicio() {
@@ -38,6 +38,32 @@
 		}
 
 		function reserva_quartos() {
+			valorDiaria = parseInt(prompt("Qual o valor padrão da diária? "))
+
+			if (valorDiaria <= 0 || isNaN(valorDiaria) || valorDiaria.trim === "") {
+				alert("Digite um valor válido!")
+				reserva_quartos()
+			} else {
+				alert("O valor escolhido foi: " + "R$" + valorDiaria + ",00")
+			}
+			
+
+			qntDias = parseInt(prompt("Pretende ficar quantos dias hospedado? "))
+
+			if (qntDias > 30 || qntDias <= 0 || isNaN(qntDias) || qntDias.trim === "") {
+				alert("Digite uma quantidade de dias válida! ")
+				reserva_quartos()
+			} else {
+				resultadoTotalDiarias = valorDiaria * qntDias 
+				alert("Você ficará por " + qntDias + " dias, o preço final será de: R$" + resultadoTotalDiarias + ",00")
+			}
+
+			nomeHospede = prompt("Qual o nome do hóspede?")
+
+			while (nomeHospede.trim === "" || Number(nomeHospede)) {
+				alert("Digite um nome!")
+			} 
+			
 			var listaDisponiveis = []
 			for (var i = 0; i < 20; i++){
 				if (!quartosDisponiveis[i]){
@@ -50,7 +76,8 @@
 			if (quartoEscolhido < 1 || quartoEscolhido > 20){
 				alert("Número de quarto inválido! Escolha um quarto entre 1 e 20")
 				reserva_quartos()
-				return
+			} else {
+
 			}
 
 			if (quartosDisponiveis[quartoEscolhido - 1]){
@@ -58,24 +85,58 @@
 				reserva_quartos()
 			} else {
 				quartosDisponiveis[quartoEscolhido - 1] = true
-				alert("O quarto escolhido foi " + quartoEscolhido + ", e foi reservado com sucesso!")
+			}
+
+			alert("O quarto escolhido foi o Nº" + quartoEscolhido + " \nNo valor de: R$" + resultadoTotalDiarias + ",00" + " \nPara o(a) hóspede: " + nomeHospede + "\nCom o total de: " + qntDias + " dias")
+
+			var confirma = prompt(usuario + ", você confirma a hospedagem para " + nomeHospede + " por " + qntDias + " dias para o quarto " + quartoEscolhido + " por R$" + resultadoTotalDiarias + ",00 ? (S/N)").toUpperCase
+
+			switch(confirma) {
+				case 'S':
+					alert(usuario + ", reserva efetuada para " + nomeHospede)
+				break
 			}
 
 			menu();
 		}
 
 		function cadastro_hospedes() {
-			qntDias = parseInt(prompt("Pretende ficar quantos dias hospedado? "))
+			valorDiaria = parseInt(prompt("Qual o valor padrão da diária?"))
 
-			if(qntDias > 30 || qntDias <= 0 || isNaN(qntDias) || qntDias.trim === ""){
-				alert("Digite uma quantidade de dias válida! ")
-				cadastro_hospedes()
-			} else {
-				nomeHospede = prompt("Qual é o nome do hospede? ")
+			if (valorDiaria <= 0 || isNaN(valorDiaria) || valorDiaria.trim === "") {
+				alert("Digite um valor válido!")
 				reserva_quartos()
+			} else {
+				alert("O valor escolhido foi: " + "R$" + valorDiaria + ",00")
+				apenasNome()
 			}
 
-			menu()
+			
+			function apenasNome() {
+
+				nomeHospede = prompt("Qual o nome do hóspede?")
+
+				while(nomeHospede === "" || Number(nomeHospede)){
+					alert("Digite um nome válido!")
+				}
+	
+				idadeHospede = prompt("Qual a idade do hóspede?")
+
+				if (idadeHospede <= 6){
+					alert(nomeHospede + " cadastrada(o) com sucesso " + nomeHospede + " possui gratuidade")
+
+				} else {
+					alert(nomeHospede + " cadastrada(o) com sucesso")
+				}
+
+				if (idadeHospede > 60){
+					alert(nomeHospede + "cadastrada(o) com sucesso " + nomeHospede + " paga meia")
+				} else if (idadeHospede === "PARE" || idadeHospede === "pare"){
+					alert(usuario + ", o valor das hospedagens é: R$")
+				}
+
+
+			}
 		}
 
 		function abastecer_carros() {
