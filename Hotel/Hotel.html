@@ -105,44 +105,135 @@
 		}
 
 		function cadastro_hospedes() {
-			var idadeHospede, nomeHospede, valorTotal
-			var meia = 0, inteira = 0, gratuita = 0
 			var totalHospedes = []
 
-			valorDiaria = parseInt(prompt("Qual o valor padrão da diária?"))
-			
-			while(true){
-				nomeHospede = prompt("Qual o nome do hóspede? ")
+			menu2()
 
-				if (nomeHospede.toUpperCase() === 'PARE'){
-					alert(usuario + " O valor total das hospedagens é: \nGratuidade: " + gratuita + "\nInteira: " + inteira + "\nMeia: " + meia)
-					break
-				}	
-
-				idadeHospede = parseInt(prompt("Qual a idade do hóspede? "))
-
-				if (idadeHospede <= 6) {
-					alert(nomeHospede + " cadastrada(o) com sucesso. " + nomeHospede + " possui gratuidade")
-					gratuita++
-					
-				} else if (idadeHospede >= 7 && idadeHospede <= 60) {
-					alert(nomeHospede + " cadastrada(o) com sucesso.")
-					inteira++
-	
-					valorTotal = valorDiaria 
-
-				} else if (idadeHospede > 60) {
-					alert(nomeHospede + " cadastrada(o) com sucesso. " + nomeHospede + " paga meia")
-					meia++
-	
-					valorTotal = valorDiaria / 2
+			function menu2(){
+				var menu2 = parseInt(prompt("Selecione uma opção \n 1 - Cadastrar \n 2 - Pesquisar \n 3 - Listar \n 4 - Sair \n"))
+				switch(menu2){
+					case 1:
+						cadastro()
+						break
+					case 2:
+						pesquisar()
+						break
+					case 3:
+						listar()
+						break
+					case 4:
+						sair()
+						break
+					default:
+						erro2()
+						break
 				}
+			}
+
+			
+			function cadastro(){
+				var idadeHospede, nomeHospede
+				var meia = 0, inteira = 0, gratuita = 0, valorTotal = 0, maxHospedes = 15
+	
+				valorDiaria = parseInt(prompt("Qual o valor padrão da diária?"))
+				
+				while(true){
+					if(totalHospedes.length < maxHospedes){
+						nomeHospede = prompt("Qual o nome do hóspede? ") 
+						
+						if (nomeHospede.toUpperCase() === 'PARE'){
+							alert(usuario + " O valor total das hospedagens é: R$" + valorTotal + ",00" + " \nGratuidade: " + gratuita + "\nInteira: " + inteira + "\nMeia: " + meia)
+							menu2()
+						}
+						totalHospedes.push(nomeHospede)
+						
+						idadeHospede = parseInt(prompt("Qual a idade do hóspede? "))
+		
+						if (idadeHospede <= 6) {
+							alert(nomeHospede + " cadastrada(o) com sucesso. " + nomeHospede + " possui gratuidade")
+							gratuita++
+							
+						} else if (idadeHospede >= 7 && idadeHospede <= 60) {
+							alert(nomeHospede + " cadastrada(o) com sucesso.")
+							inteira++
+			
+							valorTotal += valorDiaria
+		
+						} else if (idadeHospede > 60) {
+							alert(nomeHospede + " cadastrada(o) com sucesso. " + nomeHospede + " paga meia")
+							meia++
+			
+							valorTotal += valorDiaria / 2
+						}
+					} else{
+						alert("Máximo de cadastros atingido")
+						menu2()
+					}
+				}
+			}
+
+			function pesquisar(){
+				var pesquisarHospede = prompt("Qual o nome do hóspede?")
+
+				if (totalHospedes.includes(pesquisarHospede)){
+					alert("Hóspede " + pesquisarHospede + " encontrado!")
+				} else {
+					alert("Hóspede " + pesquisarHospede + " não encontrado")
+				}
+			
+				menu2()
+			}
+
+			function listar(){
+				alert(totalHospedes.join(", "))
+				menu2()
+			}
+
+			function sair(){
+				menu()
 			}
 		}
 
 		function abastecer_carros() {
-			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
-			menu();
+			var litros = 42
+
+			var combustivelWayne, custoWayne
+    		var combustivelStark, custoStark
+
+			var alWayneOil = parseFloat(prompt("Qual o valor do álcool no posto Wayne Oil?"))
+			var gsWayneOil = parseFloat(prompt("Qual o valor da gasolina no posto Wayne Oil?"))
+
+			var alStarkPetrol = parseFloat(prompt("Qual o valor do álcool no posto Stark Petrol?"))
+			var gsStarkPetrol = parseFloat(prompt("Qual o valor da gasolina no posto Stark Petrol?"))
+
+			if (alWayneOil / gsWayneOil < 0.07) {
+				combustivelStark = "álcool"
+				custoWayne = gsWayneOil * litros
+			} else {
+				combustivelWayne = "gasolina"
+				custoWayne = gsWayneOil * litros
+			}
+
+			if (alStarkPetrol / gsStarkPetrol < 0.7){
+				combustivelStark = "álcool"
+				custoStark = alStarkPetrol * litros
+			} else {
+				combustivelStark = "gasolina"
+				custoStark = gsStarkPetrol * litros
+			}
+
+			var mensagem = "No posto Wayne Oil, compensa abastecer com " + combustivelWayne + ". Total: R$ " + custoWayne.toFixed(2) + "\nNo posto Stark Petrol, compensa abastecer com " + combustivelStark + ". Total: R$ " + custoStark.toFixed(2)
+                   
+			if (custoWayne < custoStark){
+				mensagem += "\n\n➡️ Melhor opção: Wayne Oil"
+			} else if (custoStark < custoWayne){
+				mensagem += "\n\n➡️ Melhor opção: Stark Petrol"
+			} else {
+				mensagem += "\n\n➡️ Os dois postos têm o mesmo custo!"
+			}
+
+			alert(mensagem)
+			menu()
 		}
 
 		function solicitarLogin() {
@@ -158,7 +249,12 @@
 
 		function erro() {
 			alert('Por favor, informe um número entre 1 e 4');
-			menu();
+			menu()
+		}
+
+		function erro2() {
+			alert('Por favor, informe um número entre 1 e 4');
+			menu2()
 		}
 
 		function sair() {
