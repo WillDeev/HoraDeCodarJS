@@ -7,7 +7,6 @@
 		var quartosDisponiveis = [20].fill(false)
 
 		function inicio() {
-			escolherAuditorio()
 			usuario = prompt("Digite o seu usuário: ")
 
 			solicitarLogin()
@@ -240,11 +239,15 @@
 		}
 
 		function escolherAuditorio() {
-			var auditorioLaranja = 150, cadeiras = 70, auditorioColorado = 350, totalConvidados, capacidadeMaxLaranja = auditorioLaranja + cadeiras, qntConvidados
-			
-			var diaEscolhido
+			var auditorioLaranja = 150, cadeiras = 70, auditorioColorado = 350, totalConvidados, capacidadeMaxLaranja = auditorioLaranja + cadeiras, qntConvidados, auditorioEscolhido
 
-			var qntConvidados2, duracaoEvento
+			var diaEscolhido, horario, nomeEmpresa
+
+			var qntConvidados2, duracaoEvento, custoTotal
+
+			var totalGarcons
+
+			var custoBuffetTotal
 
 
 			qntConvidados = parseInt(prompt("Qual o número de convidados para o seu evento?"))
@@ -261,11 +264,14 @@
 
 			if (qntConvidados > capacidadeMaxLaranja) {
 				alert("Use o auditório Colorado")
+				auditorioEscolhido = "Colorado"
 			} else if (qntConvidados <= auditorioLaranja) {
-				alert("Use o auditório laranja")
+				alert("Use o auditório Laranja")
+				auditorioEscolhido = "Laranja"
 			} else {
 				var cadeirasNecessarias = qntConvidados - auditorioLaranja
 				alert("Use o auditório laranja (inclua mais " + cadeirasNecessarias + " cadeiras)")
+				auditorioEscolhido = "Laranja"
 			}
 
 			alert("Agora vamos ver a agenda do evento.")
@@ -288,14 +294,14 @@
 					alert("Escolha um dia da semana!")
 					marcarEvento()
 				} else {
-					var horario = parseInt(prompt("Qual a hora do seu evento?"))
+					horario = parseInt(prompt("Qual a hora do seu evento?"))
 
 					if (diasDaSemana[diaEscolhido] === false && horario >= 7 && horario <= 15) {
-						var nomeEmpresa = prompt("Qual o nome da empresa?")
+						nomeEmpresa = prompt("Qual o nome da empresa?")
 						alert("Auditório reservado para " + nomeEmpresa + ": " + diaEscolhido + " às " + horario + "hs");
 
 					} else if (diasDaSemana[diaEscolhido] === true && horario >= 7 && horario <= 23) {
-						var nomeEmpresa = prompt("Qual o nome da empresa?")
+						nomeEmpresa = prompt("Qual o nome da empresa?")
 						alert("Auditório reservado para " + nomeEmpresa + ": " + diaEscolhido + " às " + horario + "hs");
 					} else {
 						alert("Auditório indisponível nesse horário.")
@@ -303,7 +309,7 @@
 					}
 				}
 
-				alert("Agora vamos ver quantos garçoms você precisa")
+				alert("Agora vamos ver quantos garçons você precisa")
 				contratarGarcons()
 			}
 
@@ -324,19 +330,54 @@
 
 				var garconsPorConvidado = Math.ceil(qntConvidados / 12)
 				var garconsPorHora = Math.ceil(duracaoEvento / 2)
-				var totalGarcons = garconsPorConvidado + garconsPorHora
+				totalGarcons = garconsPorConvidado + garconsPorHora
 
-				var custoTotal = totalGarcons * duracaoEvento * 10.50
+				custoTotal = totalGarcons * duracaoEvento * 10.50
 
 				alert("Serão necessários " + totalGarcons + " garçons. \nCusto total: R$ " + custoTotal.toFixed(2))
 
 
 				alert("Agora vamos calcular o custo do buffet do hotel para o evento.")
-
+				custoBuffet()
 			}
 
-			function custoBuffet(){
+			function custoBuffet() {
+				var cafe = 0.2 * qntConvidados, agua = 0.5 * qntConvidados, salgados = 7 * qntConvidados
+				var custoCafe = cafe * 0.80, custoAgua = agua * 0.40, custoSalgados = Math.ceil(salgados / 100) * 34
+				var custoBuffet = custoCafe + custoAgua + custoSalgados
 
+				custoBuffetTotal = custoCafe + custoAgua + custoSalgados;
+
+				alert("Serão necessários " + cafe + "L de café, " + agua + "L de água e " + salgados + " salgados. \nCusto do buffet: R$ " + custoBuffet.toFixed(2))
+				relatorioFinal()
+			}
+
+			function relatorioFinal() {
+				var horaFinal = horario + duracaoEvento
+				var valorTotal = custoTotal + custoBuffetTotal
+				
+
+				var relatorio =
+					"Evento no Auditório " + auditorioEscolhido + ".\n" +
+					"Nome da Empresa: " + nomeEmpresa + ".\n" +
+					"Data: " + diaEscolhido + ", " + horario + "H às " + horaFinal + "H.\n" +
+					"Duração do evento: " + duracaoEvento + "H.\n" +
+					"Quantidade de garçons: " + totalGarcons + ".\n" +
+					"Quantidade de Convidados: " + qntConvidados + ".\n\n" +
+					"Custo com garçons: R$ " + custoTotal.toFixed(2) + "\n" +
+					"Custo com Buffet: R$ " + custoBuffetTotal.toFixed(2) + "\n\n" +
+					"Valor total do Evento: R$ " + valorTotal.toFixed(2)
+
+				alert(relatorio)
+
+				var confirmar = prompt("Gostaria de efetuar a reserva? S/N").toUpperCase()
+
+				if (confirmar === "S") {
+					alert(nomeEmpresa + ", reserva efetuada com sucesso.");
+				} else {
+					alert("Reserva não efetuada.")
+					menu()
+				}
 			}
 		}
 
